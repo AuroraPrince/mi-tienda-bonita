@@ -1,11 +1,16 @@
 {
+  "name": "mi-tienda-bonita-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
-    "@stripe/react-stripe-js": "^6.11.0",
-    "@stripe/stripe-js": "^9.17.0",
     "@supabase/supabase-js": "^2.116.0",
-    "axios": "^1.20.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
+    "dotenv": "^18.0.0",
     "express": "^4.22.3",
     "express-async-errors": "^3.1.1",
     "express-rate-limit": "^8.7.0",
@@ -13,11 +18,12 @@
     "joi": "^18.2.9",
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.12.1",
+    "multer": "^1.4.5-lts.2",
     "nodemailer": "^10.0.10",
+    "stripe": "^17.7.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {
-    "dotenv": "^18.0.0",
     "nodemon": "^3.1.14"
   }
 }
