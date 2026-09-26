@@ -1,11 +1,11 @@
-import { createContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useState, useEffect, useCallback, useContext } from 'react'
 import {
   obtenerCarrito,
   agregarAlCarrito,
   actualizarCantidad,
   eliminarDelCarrito,
   vaciarCarrito,
-} from '../services/cart.service'
+} from '../../services/cart.service'
 
 export const CartContext = createContext(null)
 
@@ -22,7 +22,7 @@ export function CartProvider({ children, userId }) {
       setError(null)
       const data = await obtenerCarrito(userId)
       setItems(data)
-    } catch (err) {
+    } catch {
       setError('No se pudo cargar el carrito.')
     } finally {
       setCargando(false)
@@ -78,8 +78,8 @@ export function CartProvider({ children, userId }) {
   }
 
   // ── Totales derivados ───────────────────────────────────────────────────────
-  const totalItems    = items.reduce((acc, i) => acc + i.cantidad, 0)
-  const totalPrecio   = items.reduce((acc, i) => acc + i.cantidad * (i.productos?.precio ?? 0), 0)
+  const totalItems  = items.reduce((acc, i) => acc + i.cantidad, 0)
+  const totalPrecio = items.reduce((acc, i) => acc + i.cantidad * (i.productos?.precio ?? 0), 0)
 
   return (
     <CartContext.Provider
@@ -99,4 +99,11 @@ export function CartProvider({ children, userId }) {
       {children}
     </CartContext.Provider>
   )
+}
+
+// Hook directo para consumir el contexto
+export function useCart() {
+  const ctx = useContext(CartContext)
+  if (!ctx) throw new Error('useCart debe usarse dentro de <CartProvider>')
+  return ctx
 }
